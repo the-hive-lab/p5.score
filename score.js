@@ -1,3 +1,15 @@
+class Position {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  distanceTo(otherPos) {
+    return Math.sqrt(Math.pow(this.x - otherPos.x, 2) + Math.pow(this.y - otherPos.y, 2))
+  }
+
+}
+
 class Dancer {
   constructor(x, y, dur, pos, col, shape) {
     this.x = x;
@@ -6,6 +18,7 @@ class Dancer {
     this.pos = pos;
     this.col = col;
     this.shape = shape;
+    this.partners = [];
   }
 
   show() {
@@ -15,9 +28,21 @@ class Dancer {
     circle(this.x, this.y, this.shape);
   }
 
+  addPartner(dancer) {
+    this.partners.push(dancer) 
+  }
+
   moves() {
     
     this.inTween = p5.tween.manager.addTween(this);
+
+    // this.inTween.addMotions(
+    //   [
+    //     { key : "x", target : this.partner.x },
+    //     { key : "y", target : this.partner.y}
+    //   ],
+    //   500
+    // )
 
     for (let i = 0; i < this.pos.length; i += 2) { 
       let duration = this.dur[i] || 1000;
